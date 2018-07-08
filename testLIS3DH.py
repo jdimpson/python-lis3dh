@@ -29,14 +29,11 @@ if __name__ == '__main__':
         x = sensor.getX()
         y = sensor.getY()
         z = sensor.getZ()
-        if testADC:
-            a = sensor.getChan1()
-            b = sensor.getChan2()
-            c = sensor.getChan3()
+        a = sensor.getChan1()
+        b = sensor.getChan2()
+        c = sensor.getChan3()
 
-            print("\rX: %.6f\tY: %.6f\tZ: %.6f\t1: %.6f\t2: %.6f\t3: %.6f" % (x, y, z, a, b, c))
-        else:
-            print("\rX: %.6f\tY: %.6f\tZ: %.6f" % (x, y, z))
+        print("\rX: %.6f\tY: %.6f\tZ: %.6f\t1: %.6f\t2: %.6f\t3: %.6f" % (x, y, z, a, b, c))
         sleep(0.1)
 
     # click sensor if polling & not using interrupt
