@@ -238,7 +238,7 @@ class LIS3DH:
     def setADCStatus(self, enable):
         current = self.i2c.readU8(self.REG_CTRL4)
         status = 1 if enable else 0
-        final = self.setBit(current, 7, status)
+        final = self.setBit(current, 6, status)
         self.writeRegister(self.REG_CTRL4, final)
 
     def setInterrupt(self, mycallback):
