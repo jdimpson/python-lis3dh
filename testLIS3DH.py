@@ -16,10 +16,10 @@ def clickcallback(channel):
 
 
 if __name__ == '__main__':
-    sensor = LIS3DH(debug=True)
+    testADC=True
+    sensor = LIS3DH(debug=True,enableADC=testADC)
     sensor.setRange(LIS3DH.RANGE_2G)
     sensor.setClick(LIS3DH.CLK_DOUBLE, 200, mycallback=clickcallback)
-    testADC=True
     # second accelerometer
     # s2 = LIS3DH(address=0x19, debug=True)
 
