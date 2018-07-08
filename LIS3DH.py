@@ -233,13 +233,15 @@ class LIS3DH:
         final = self.setBit(current, axis, status)
         self.writeRegister(self.REG_CTRL1, final)
 
-    # Read status from CTRL_REG4, then write back with
-    # appropriate status bit changed
     def setADCStatus(self, enable):
         current = self.i2c.readU8(self.REG_CTRL4)
         status = 1 if enable else 0
-        final = self.setBit(current, 6, status)
+        final = self.setBit(current, 7, status)
         self.writeRegister(self.REG_CTRL4, final)
+        current = self.i2c.readU8(self.REG_TEMPCFG)
+        status = 1 if enable else 0
+        final = self.setBit(current, 7, status)
+        self.writeRegister(self.REG_TEMPCFG, final)
 
     def setInterrupt(self, mycallback):
         GPIO.setmode(GPIO.BCM)
