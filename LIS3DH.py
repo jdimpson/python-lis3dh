@@ -111,7 +111,7 @@ class LIS3DH:
     # alternative i2c address=0x19
     def __init__(self, address=I2C_DEFAULT, bus=BUS_NUMBER,
                  g_range=RANGE_DEFAULT, datarate=DATARATE_DEFAULT,
-                 debug=False):
+                 debug=False, enableADC=False):
         self.isDebug = debug
         self.debug("Initialising LIS3DH")
 
@@ -140,6 +140,10 @@ class LIS3DH:
         self.setAxisStatus(self.AXIS_Y, True)
         self.setAxisStatus(self.AXIS_Z, True)
 
+        # Enable the ADC channels
+        if enableADC:
+          self.setADCStatus(True)
+        
         # Set refresh rate (default: 400Hz)
         self.setDataRate(datarate)
 
@@ -228,6 +232,14 @@ class LIS3DH:
         status = 1 if enable else 0
         final = self.setBit(current, axis, status)
         self.writeRegister(self.REG_CTRL1, final)
+
+    # Read status from CTRL_REG4, then write back with
+    # appropriate status bit changed
+    def setADCStatus(self, enable):
+        current = self.i2c.readU8(self.REG_CTRL4)
+        status = 1 if enable else 0
+        final = self.setBit(current, 7, status)
+        self.writeRegister(self.REG_CTRL4, final)
 
     def setInterrupt(self, mycallback):
         GPIO.setmode(GPIO.BCM)
