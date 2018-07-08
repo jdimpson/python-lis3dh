@@ -141,8 +141,7 @@ class LIS3DH:
         self.setAxisStatus(self.AXIS_Z, True)
 
         # Enable the ADC channels
-        if enableADC:
-          self.setADCStatus(True)
+        self.setADCStatus(enableADC)
         
         # Set refresh rate (default: 400Hz)
         self.setDataRate(datarate)
