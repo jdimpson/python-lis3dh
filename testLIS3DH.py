@@ -19,7 +19,7 @@ if __name__ == '__main__':
     sensor = LIS3DH(debug=True)
     sensor.setRange(LIS3DH.RANGE_2G)
     sensor.setClick(LIS3DH.CLK_DOUBLE, 200, mycallback=clickcallback)
-
+    testADC=True
     # second accelerometer
     # s2 = LIS3DH(address=0x19, debug=True)
 
@@ -29,9 +29,14 @@ if __name__ == '__main__':
         x = sensor.getX()
         y = sensor.getY()
         z = sensor.getZ()
+        if testADC:
+            a = sensor.getChan1()
+            b = sensor.getChan2()
+            c = sensor.getChan3()
 
-        # raw values
-        print("\rX: %.6f\tY: %.6f\tZ: %.6f" % (x, y, z))
+            print("\rX: %.6f\tY: %.6f\tZ: %.6f\t1: %.6f\t2: %.6f\t3: %.6f" % (x, y, z, a, b, c))
+        else:
+            print("\rX: %.6f\tY: %.6f\tZ: %.6f" % (x, y, z))
         sleep(0.1)
 
     # click sensor if polling & not using interrupt
