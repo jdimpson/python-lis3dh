@@ -164,7 +164,18 @@ class LIS3DH:
     def getAxis(self, axis):
         # Determine which register we need to read from (2 per axis)
         base = self.REG_OUT_X_L + (2 * axis)
+        return self.getChan(base)
 
+    def getChan1(self):
+        return self.getChan(self.REG_OUTADC1_L)
+
+    def getChan2(self):
+        return self.getChan(self.REG_OUTADC2_L)
+    
+    def getChan3(self):
+        return self.getChan(self.REG_OUTADC3_L)
+
+    def getChan(self, base):
         # Read the first register (lower bits)
         low = self.i2c.readU8(base)
         # Read the next register (higher bits)
